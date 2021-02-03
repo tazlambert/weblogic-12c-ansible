@@ -159,8 +159,6 @@
     - "/tmp/mwi.jar"
   when: "{{ ansible_hostname == groups['app'][0] }}"
 
-#- include: sshkey-exchange-t2.yaml 
-
 - name: Copy the file
   tags: sync,packit
   synchronize:
