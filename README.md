@@ -51,3 +51,7 @@ sqlplus sys as sysdba
 ```
 vagrant destroy
 ```
+
+## References ##
+
+[Oracle WebLogic Ansible by AK Sarav](https://github.com/AKSarav/VagrantWeblogicInfra-AnsibleRole)
