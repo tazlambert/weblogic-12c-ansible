@@ -6,7 +6,7 @@ This setup will do several things=
 2. Install Oracle WebLogic 12c in Cluster
 3. Create CDB and PDB
 ```
-Note: Please modify all necessary configuration files based on your own environment.For Example, one can modify dbca response file to install DB, create CDB and PDB. Please also make sure the installer file already downloaded and placed in the right directory, in this case Oracle WebLogic 12c installer (fmw_12.2.1.4.0_wls.jar) and JDK (jdk-8u221-linux-x64.tar.gz) in roles -> oracle-install -> files.
+Note: Please modify all necessary configuration files based on your own environment.For Example, one can modify dbca response file to install DB, create CDB and PDB. Please also make sure the installer file already downloaded and placed in the right directory, in this case Oracle WebLogic 12c installer (fmw_12.2.1.4.0_wls.jar) and JDK (jdk-8u221-linux-x64.tar.gz) in roles -> weblogic-install -> files.
 
 Summary commands: 
 
