@@ -43,14 +43,14 @@ vagrant up
 ```
 5.2. Start the process using ansible only
 ```
-ansible-playbook playboo.xml
+ansible-playbook playbook.xml
 ```
 6.1. Check if installation success in vagrant 
 ```
 vagrant ssh
 ps -ef | grep java
 ```
-6.2. 
+6.2. Check if installation success ansible only
 ```
 ssh opc@to-host
 sudo su - oracle
