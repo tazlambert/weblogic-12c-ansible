@@ -45,17 +45,16 @@ vagrant up
 ```
 ansible-playbook playboo.xml
 ```
-6.1. Check if installation success in vagrant
+6.1. Check if installation success in vagrant 
 ```
 vagrant ssh
-sudo su - oracle
-sqlplus sys as sysdba
+ps -ef | grep java
 ```
 6.2. 
 ```
 ssh opc@to-host
 sudo su - oracle
-sqlplus sys as sysdba
+ps -ef | grep java
 ```
 7. To scrap the installation
 ```
