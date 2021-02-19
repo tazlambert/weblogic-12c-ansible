@@ -1,6 +1,8 @@
-app1 ansible_ssh_host=192.168.56.21 ansible_ssh_port=22
-app2 ansible_ssh_host=192.168.56.22 ansible_ssh_port=22
+#app1 ansible_ssh_host=192.168.56.21 ansible_ssh_port=22
+#app2 ansible_ssh_host=192.168.56.22 ansible_ssh_port=22
+ans-wls1 ansible_ssh_host=10.0.0.23 ansible_ssh_port=22
+ans-wls2 ansible_ssh_host=10.0.0.24 ansible_ssh_port=22
 
 [app]
-app1
-app2
+ans-wls1
+ans-wls2

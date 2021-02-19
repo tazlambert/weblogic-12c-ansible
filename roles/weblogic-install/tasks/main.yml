@@ -80,13 +80,14 @@
   register: setwlsenv
   args:
     chdir: "{{ oracle_home }}"
-  when: "{{ ansible_hostname == groups['app'][0] }}"
+#  when: "{{ ansible_hostname == groups['app'][0] }}"
+  when: " ansible_hostname in groups['app'][0] "
   environment:
           USER_MEM_ARGS: "-Djava.security.egd=file:/dev/./urandom" 
 
 - debug:
     msg: "{{ setwlsenv.stdout_lines }}"
-  when: "{{ ansible_hostname == groups['app'][0] }}"
+  when: " ansible_hostname in groups['app'][0] "
   
 
 - name: validating if the AdminServer is already started and running
@@ -97,7 +98,7 @@
     delay: 10
     timeout: 30
     state: started
-  when: ansible_hostname == "{{groups['app'][0]}}"
+  when: " ansible_hostname in groups['app'][0] "
   register: amprevalidate
   ignore_errors: true
 
@@ -108,7 +109,7 @@
     chdir: "{{oracle_home}}/domains/{{domain_name}}/bin/"
   register: startadminserver
   run_once: yes
-  when: ansible_hostname == "{{ groups['app'][0] }}" and amprevalidate is failed
+  when: " ansible_hostname in  groups['app'][0] and amprevalidate is failed "
   environment:
           USER_MEM_ARGS: "-Djava.security.egd=file:/dev/./urandom"
 
@@ -120,7 +121,7 @@
     delay: 10
     timeout: 120
     state: started
-  when: ansible_hostname == "{{groups['app'][0]}}"
+  when: " ansible_hostname in groups['app'][0] "
 
 - name: Map Resources - Cluster and Machine
   tags: mapresources
@@ -128,7 +129,7 @@
   register: mapresources
   args:
     chdir: "{{ oracle_home }}"
-  when: "{{ ansible_hostname == groups['app'][0] }}"
+  when: " ansible_hostname in groups['app'][0] "
   environment:
           USER_MEM_ARGS: "-Djava.security.egd=file:/dev/./urandom" 
 
@@ -139,7 +140,7 @@
   run_once: true
   tags: app,packit
   failed_when: "packcommand.stderr"
-  when: "{{ ansible_hostname == groups['app'][0] }}"
+  when: " ansible_hostname in groups['app'][0] "
 
 - name: display pack template
   tags: packit
@@ -147,7 +148,7 @@
   command: "ls -lrt /tmp/mwi.jar"
   register: output
   failed_when: " 'No' in output.stderr"
-  when: "{{ ansible_hostname == groups['app'][0] }}"
+  when: " ansible_hostname in groups['app'][0] "
 
 - name: change permission
   tags: packit
@@ -157,10 +158,11 @@
     mode: 0775
   with_items:
     - "/tmp/mwi.jar"
-  when: "{{ ansible_hostname == groups['app'][0] }}"
+  when: " ansible_hostname in groups['app'][0] "
 
 - name: Copy the file
   tags: sync,packit
+  become_user: "{{ ansible_user_id }}"
   synchronize:
     src: "{{ item }}"
     dest: "{{ item }}"
@@ -169,13 +171,13 @@
   register: syncfile
   with_items:
    - "/tmp/mwi.jar"
-  when: ansible_hostname == "{{groups['app'][1]}}"
+  when: " ansible_hostname not in groups['app'][0] "
 
 - name: Run the unpack operation
   shell: "{{ wlshome }}/common/bin/unpack.sh -domain={{domainroot}}/{{domain_name}} -template=/tmp/mwi.jar"
   register: unpack
   tags: app,unpack,packit
-  when: ansible_hostname == "{{groups['app'][1]}}"
+  when: " ansible_hostname not in groups['app'][0] "
 
 - name: set the SSL listener to false in nodemanager.properties file
   tags: replaceline
