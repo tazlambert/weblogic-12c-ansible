@@ -25,7 +25,5 @@ ManagedServer1_Name: app1
 ManagedServer1_Port: 8002
 ManagedServer2_Name: app2
 ManagedServer2_Port: 8002
-ManagedServer3_Name: app333
-ManagedServer3_Port: 8002
 ClusterName: mwiCluster
 
